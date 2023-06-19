@@ -24,4 +24,8 @@ public class Product {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name="category_id")
     private Category category;
+
+    public Integer getId() {
+        return id != null ? id : 0;
+    }
 }

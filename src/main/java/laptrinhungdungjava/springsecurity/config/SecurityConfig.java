@@ -42,15 +42,23 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests(authorize -> authorize
-                        .requestMatchers("/home/**", "/logout", "/login", "/cart/**").permitAll()
-                        .requestMatchers("/cart/**").hasAnyAuthority("USER")
-                        .requestMatchers("/products/**").hasAnyAuthority("USER", "SALES")
-                        .requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
+                        .requestMatchers("/home/**", "/logout", "/login/**")
+                        .permitAll().requestMatchers("/admin/products").hasAnyAuthority("ADMIN")
+//                      .requestMatchers("/cart/**").hasAnyAuthority("USER")
+                        .requestMatchers("/user/**").hasAnyAuthority("USER", "SALES")  //products
+                        .requestMatchers("/register/**").permitAll()
+
                         .anyRequest().authenticated()
                 )
                 .logout(logout ->logout
                         .logoutSuccessUrl("/login") // Specify the URL to redirect after successful logout
                         .permitAll())
+                .authenticationProvider(authenticationProvider())
+                .exceptionHandling(
+                        exception -> exception
+                                // Xử lý trang truy cập bị từ chối
+                                .accessDeniedPage("/home/error"))
+
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
                         .defaultSuccessUrl("/home", true)
