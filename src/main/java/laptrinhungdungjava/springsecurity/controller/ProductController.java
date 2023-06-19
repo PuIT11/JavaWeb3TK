@@ -91,4 +91,11 @@ public class ProductController {
         return "redirect:/products";
     }
 
+    @GetMapping("/detail/{id}")
+    public String detail(@PathVariable("id") int id, Model model) {
+        Product product = productService.get(id);
+        model.addAttribute("product", product);
+        return "products/detail";
+    }
+
 }

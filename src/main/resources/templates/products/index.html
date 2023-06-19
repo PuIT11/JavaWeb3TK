@@ -45,6 +45,13 @@
                     </form>
                 </span>
             </td>
+
+            <td>
+                <span sec:authorize="hasAuthority('USER')">
+                    <a th:href="@{/products/detail/{id}(id=${product.id})}" class="btn btn-secondary">Detail</a>
+                </span>
+            </td>
+
         </tr>
         </tbody>
     </table>
