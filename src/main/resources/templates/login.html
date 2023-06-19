@@ -8,7 +8,7 @@
   <title>Trang chủ</title>
 </head>
 <body>
-<div layout:fragment="content" class="container login-content">
+<div layout:fragment="content" class="container body-content">
   <form th:action="@{/login}" method="post" style="max-width: 350px; margin: 0 auto;">
     <div th:if="${param.error}">
       <p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
